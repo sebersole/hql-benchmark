@@ -1,0 +1,11 @@
+apply from: rootProject.file( 'gradle/java-module.gradle' )
+
+repositories {
+    // Because of shitty developers.redhat.com...
+    mavenLocal()
+}
+
+dependencies {
+    compile project( ':hql-benchmark-common' )
+    compile 'org.hibernate.poc.sebersole.sqm:dot-identifier-sequence:1.0.0-SNAPSHOT'
+}

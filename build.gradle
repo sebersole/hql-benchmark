@@ -1,0 +1,80 @@
+buildscript {
+    repositories {
+        mavenCentral()
+
+        maven {
+            url 'https://plugins.gradle.org/m2/'
+        }
+    }
+    dependencies {
+        classpath 'me.champeau.gradle:jmh-gradle-plugin:0.4.7'
+    }
+}
+
+allprojects {
+    group 'org.hibernate.benchmarks.orm.hql'
+    version '1.0.0-SNAPSHOT'
+}
+
+apply from: rootProject.file( 'gradle/java-module.gradle' )
+
+apply plugin: "me.champeau.gradle.jmh"
+
+
+ext {
+    ormVersion = 'orm6'
+
+    if ( project.hasProperty( 'orm5' ) ) {
+        ormVersion = 'orm5'
+    }
+    else if ( project.hasProperty( 'seqpoc' ) ) {
+        ormVersion = 'seqpoc'
+    }
+}
+
+
+dependencies {
+    compile 'org.openjdk.jmh:jmh-core:1.21'
+    compile project( ':hql-benchmark-common' )
+
+    compile 'javax.persistence:javax.persistence-api:2.2'
+
+    runtime libraries.h2
+    
+}
+
+if ( ormVersion == 'seqpoc' ) {
+    repositories {
+        // Because of shitty developers.redhat.com...
+        mavenLocal()
+    }
+}
+
+afterEvaluate {
+    dependencies {
+        if ( ormVersion == 'orm5' ) {
+            runtime project( ':hql-benchmark-orm5' )
+        }
+        else if ( ormVersion == 'seqpoc' ) {
+            runtime project( ':hql-benchmark-seqpoc' )
+        }
+        else {
+            runtime project( ':hql-benchmark-orm6' )
+        }
+    }
+}
+
+jmh {
+    // for available options, see https://github.com/melix/jmh-gradle-plugin/blob/master/README.adoc#configuration-options
+
+    benchmarkMode = ['avgt']
+
+    iterations = 20 //default 10
+    fork = 2 //default 10
+    warmupIterations = 20 // Number of warmup iterations to do.
+
+    def formattedDate = new Date().format( 'yyyy-MM-dd-HHmmss' )
+
+    humanOutputFile = project.file( "${buildDir}/reports/jmh/${ormVersion}_human_${formattedDate}.txt" ) // human-readable output file
+    resultsFile = project.file( "${buildDir}/reports/jmh/${ormVersion}_results_${formattedDate}.txt" )// results file
+}

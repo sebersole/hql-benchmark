@@ -1,0 +1,6 @@
+apply from: rootProject.file( 'gradle/java-module.gradle' )
+
+dependencies {
+    compile project( ':hql-benchmark-common' )
+    compile 'org.hibernate.orm:hibernate-core:6.0.0-SNAPSHOT'
+}

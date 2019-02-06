@@ -1,0 +1,24 @@
+/*
+ * Hibernate, Relational Persistence for Idiomatic Java
+ *
+ * License: GNU Lesser General Public License (LGPL), version 2.1 or later
+ * See the lgpl.txt file in the root directory or http://www.gnu.org/licenses/lgpl-2.1.html
+ */
+
+// build a map of the dependency artifacts to use.  Allows centralized definition of the version of artifacts to
+// use.  In that respect it serves a role similar to <dependencyManagement> in Maven
+ext {
+    orm5Version = '5.3.7.Final'
+    orm6Version = '6.0.0-SNAPSHOT'
+
+    h2Version = '1.4.196'
+
+    libraries = [
+            orm5: "org.hibernate:hibernate-core:${orm5Version}",
+            orm6: "org.hibernate:hibernate-core:${orm6Version}",
+
+            h2: "com.h2database:h2:${h2Version}",
+
+            logging: 'org.jboss.logging:jboss-logging:3.3.2.Final',
+        ]
+}

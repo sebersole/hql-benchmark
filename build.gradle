@@ -45,7 +45,6 @@ dependencies {
 
 if ( ormVersion == 'seqpoc' ) {
     repositories {
-        // Because of shitty developers.redhat.com...
         mavenLocal()
     }
 }

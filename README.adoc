@@ -3,20 +3,28 @@
 Benchmark testing HQL parsing and semantic analysis between different versions of Hibernate.
 
 Each version must be run individually and the results can be compared using from the results file for
-each of the runs.  To run using Hibernate 5.3, use:
+each of the runs.
+
+To run using Hibernate 5.3, use:
 
 ````
+gradlew jmh -Porm5
+// or
 gradlew clean jmh -Porm5
 ````
 
 To run using Hibernate 6.0
 
 ````
+gradlew jmh
+// or
 gradlew clean jmh
 ````
 
 Additionally the "dot identifier sequence" PoC can be tested using:
 
 ````
+gradlew jmh -Pseqpoc
+// or
 gradlew clean jmh -Pseqpoc
 ````

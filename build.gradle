@@ -1,6 +1,7 @@
 buildscript {
     repositories {
         mavenCentral()
+        jcenter()
 
         maven {
             url 'https://plugins.gradle.org/m2/'
@@ -74,6 +75,6 @@ jmh {
 
     def formattedDate = new Date().format( 'yyyy-MM-dd-HHmmss' )
 
-    humanOutputFile = project.file( "${buildDir}/reports/jmh/${ormVersion}_human_${formattedDate}.txt" ) // human-readable output file
-    resultsFile = project.file( "${buildDir}/reports/jmh/${ormVersion}_results_${formattedDate}.txt" )// results file
+    humanOutputFile = project.file( "${buildDir}/reports/jmh/${ormVersion}/human_${formattedDate}.txt" )
+    resultsFile = project.file( "${buildDir}/reports/jmh/${ormVersion}/results_${formattedDate}.txt" )
 }

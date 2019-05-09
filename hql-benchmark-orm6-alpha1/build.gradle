@@ -7,5 +7,5 @@ repositories {
 
 dependencies {
     compile project( ':hql-benchmark-common' )
-    compile 'org.hibernate.poc.sebersole.sqm:dot-identifier-sequence:1.0.0-SNAPSHOT'
+    compile 'org.hibernate.orm:hibernate-core:6.0.0.Alpha1'
 }

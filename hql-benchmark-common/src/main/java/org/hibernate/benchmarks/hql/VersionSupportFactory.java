@@ -22,7 +22,7 @@ public class VersionSupportFactory {
 	public static final String[] VERSION_SUPPORT_IMPL_NAMES = {
 			"org.hibernate.benchmarks.hql.orm5.VersionSupportImpl",
 			"org.hibernate.benchmarks.hql.orm6.VersionSupportImpl",
-			"org.hibernate.benchmarks.hql.seqpoc.VersionSupportImpl"
+			"org.hibernate.benchmarks.hql.alpha1.VersionSupportImpl"
 	};
 
 	public static HibernateVersionSupport buildHibernateVersionSupport() {

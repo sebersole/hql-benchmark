@@ -4,7 +4,7 @@
  * License: GNU Lesser General Public License (LGPL), version 2.1 or later
  * See the lgpl.txt file in the root directory or http://www.gnu.org/licenses/lgpl-2.1.html
  */
-package org.hibernate.benchmarks.hql.seqpoc;
+package org.hibernate.benchmarks.hql.alpha1;
 
 import org.hibernate.benchmarks.hql.HqlSemanticTreeBuilder;
 import org.hibernate.engine.spi.SessionFactoryImplementor;

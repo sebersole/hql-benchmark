@@ -3,5 +3,5 @@ rootProject.name = 'hql-benchmark'
 include 'hql-benchmark-common'
 include 'hql-benchmark-orm5'
 include 'hql-benchmark-orm6'
-include 'hql-benchmark-seqpoc'
+include 'hql-benchmark-orm6-alpha1'
 

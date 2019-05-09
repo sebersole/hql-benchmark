@@ -28,8 +28,8 @@ ext {
     if ( project.hasProperty( 'orm5' ) ) {
         ormVersion = 'orm5'
     }
-    else if ( project.hasProperty( 'seqpoc' ) ) {
-        ormVersion = 'seqpoc'
+    else if ( project.hasProperty( 'alpha1' ) ) {
+        ormVersion = 'alpha1'
     }
 }
 
@@ -44,19 +44,19 @@ dependencies {
     
 }
 
-if ( ormVersion == 'seqpoc' ) {
-    repositories {
-        mavenLocal()
-    }
-}
+//if ( ormVersion == 'seqpoc' ) {
+//    repositories {
+//        mavenLocal()
+//    }
+//}
 
 afterEvaluate {
     dependencies {
         if ( ormVersion == 'orm5' ) {
             runtime project( ':hql-benchmark-orm5' )
         }
-        else if ( ormVersion == 'seqpoc' ) {
-            runtime project( ':hql-benchmark-seqpoc' )
+        else if ( ormVersion == 'alpha1' ) {
+            runtime project( ':hql-benchmark-orm6-alpha1' )
         }
         else {
             runtime project( ':hql-benchmark-orm6' )

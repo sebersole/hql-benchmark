@@ -126,11 +126,11 @@
             <index type="string" column="name"/>
             <one-to-many class="Mammal"/>
         </map-->
-        <map name="animals" inverse="true">
-            <key column="zoo_id"/>
-            <index type="string" column="serialNumber"/>
-            <one-to-many class="Animal"/>
-        </map>
+<!--        <map name="animals" inverse="true">-->
+<!--            <key column="zoo_id"/>-->
+<!--            <index type="string" column="serialNumber"/>-->
+<!--            <one-to-many class="Animal"/>-->
+<!--        </map>-->
         <component name="address" class="Address">
             <property name="street"/>
             <property name="city"/>

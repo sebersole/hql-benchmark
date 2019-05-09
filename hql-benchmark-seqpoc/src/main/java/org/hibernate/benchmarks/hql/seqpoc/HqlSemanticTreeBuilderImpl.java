@@ -8,8 +8,9 @@ package org.hibernate.benchmarks.hql.seqpoc;
 
 import org.hibernate.benchmarks.hql.HqlSemanticTreeBuilder;
 import org.hibernate.engine.spi.SessionFactoryImplementor;
-import org.hibernate.query.seqpoc.hql.internal.HqlParseTreeBuilder;
-import org.hibernate.query.seqpoc.hql.internal.SemanticQueryBuilder;
+import org.hibernate.query.sqm.produce.internal.hql.HqlParseTreeBuilder;
+import org.hibernate.query.sqm.produce.internal.hql.SemanticQueryBuilder;
+import org.hibernate.query.sqm.produce.internal.hql.grammar.HqlParser;
 
 /**
  * @author John O`Hara
@@ -26,7 +27,7 @@ public class HqlSemanticTreeBuilderImpl implements HqlSemanticTreeBuilder {
 
 	@Override
 	public Object buildSemanticModel(String hqlString) {
-		final org.hibernate.query.seqpoc.hql.internal.HqlParser parseTree = HqlParseTreeBuilder.INSTANCE.parseHql( hqlString );
-		return new SemanticQueryBuilder( sessionFactory.getMetamodel() ).visitSelectStatement( parseTree.selectStatement() );
+		final HqlParser parseTree = HqlParseTreeBuilder.INSTANCE.parseHql( hqlString );
+		return SemanticQueryBuilder.buildSemanticModel( parseTree.statement(), sessionFactory );
 	}
 }

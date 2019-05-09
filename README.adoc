@@ -13,7 +13,7 @@ gradlew jmh -Porm5
 gradlew clean jmh -Porm5
 ````
 
-To run using Hibernate 6.0
+To run using Hibernate 6.0 alpha2
 
 ````
 gradlew jmh
@@ -21,7 +21,7 @@ gradlew jmh
 gradlew clean jmh
 ````
 
-Additionally the "dot identifier sequence" PoC can be tested using:
+To run using using Hibernate 6.0 alpha1
 
 ````
 gradlew jmh -Pseqpoc

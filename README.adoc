@@ -7,24 +7,26 @@ each of the runs.
 
 To run using Hibernate 5.3, use:
 
-````
-gradlew jmh -Porm5
-// or
-gradlew clean jmh -Porm5
-````
+`gradlew jmh -Porm5`
+
+or
+
+`gradlew clean jmh -Porm5`
 
 To run using Hibernate 6.0 alpha2
 
-````
-gradlew jmh
-// or
-gradlew clean jmh
-````
+`gradlew jmh`
+
+or
+
+`gradlew clean jmh`
 
 To run using using Hibernate 6.0 alpha1
 
-````
-gradlew jmh -Pseqpoc
-// or
-gradlew clean jmh -Pseqpoc
-````
+`gradlew jmh -Palpha1`
+
+or
+
+`gradlew clean jmh -Palpha1`
+
+The generated reports can be found inside the `./build/reports/jmh` folder.

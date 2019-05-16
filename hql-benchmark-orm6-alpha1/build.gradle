@@ -1,11 +1,6 @@
 apply from: rootProject.file( 'gradle/java-module.gradle' )
 
-repositories {
-    // Because of shitty developers.redhat.com...
-    mavenLocal()
-}
-
 dependencies {
     compile project( ':hql-benchmark-common' )
-    compile 'org.hibernate.orm:hibernate-core:6.0.0.Alpha1'
+    compile "org.hibernate.orm:hibernate-core:${hibernateVersion}"
 }

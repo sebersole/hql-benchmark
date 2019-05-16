@@ -10,7 +10,7 @@
 
     <class name="Animal">
         <id name="id">
-            <generator class="native"/>
+            <generator class="increment"/>
         </id>
         <property name="description"/>
         <!--property name="bodyWeight" column="body_weight"/-->
@@ -111,7 +111,7 @@
 
     <class name="Zoo" discriminator-value="Z">
         <id name="id">
-            <generator class="native"/>
+            <generator class="increment"/>
         </id>
         <discriminator column="zooType" type="character"/>
         <property name="name" type="string"/>
@@ -143,7 +143,7 @@
 
     <class name="StateProvince">
         <id name="id">
-            <generator class="native"/>
+            <generator class="increment"/>
         </id>
         <property name="name"/>
         <property name="isoCode"/>
@@ -151,7 +151,7 @@
 
     <class name="Joiner">
         <id name="id">
-            <generator class="native"/>
+            <generator class="increment"/>
         </id>
         <property name="name"/>
         <join table="JOINED">

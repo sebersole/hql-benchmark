@@ -2,4 +2,6 @@ apply from: rootProject.file( 'gradle/java-module.gradle' )
 
 dependencies {
     compile 'org.openjdk.jmh:jmh-core:1.21'
+    compile 'javax.persistence:javax.persistence-api:2.2'
+
 }

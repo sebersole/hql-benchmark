@@ -2,7 +2,6 @@ buildscript {
     repositories {
         mavenCentral()
         jcenter()
-
         maven {
             url 'https://plugins.gradle.org/m2/'
         }
@@ -12,7 +11,14 @@ buildscript {
     }
 }
 
+
+
 allprojects {
+    if ( project.hasProperty( 'mavenLocal' ) ) {
+        repositories {
+            mavenLocal()
+        }
+    }
     group 'org.hibernate.benchmarks.orm.hql'
     version '1.0.0-SNAPSHOT'
 }
@@ -24,15 +30,32 @@ apply plugin: "me.champeau.gradle.jmh"
 
 ext {
     ormVersion = 'orm6'
+    hibernateVersion = '6.0.0-SNAPSHOT'
 
     if ( project.hasProperty( 'orm5' ) ) {
         ormVersion = 'orm5'
+        if ( orm5?.trim() ) {
+            hibernateVersion = orm5
+        }
+        else {
+            hibernateVersion = '5.3.7.Final'
+        }
+
     }
     else if ( project.hasProperty( 'alpha1' ) ) {
         ormVersion = 'alpha1'
+        hibernateVersion = '6.0.0.Alpha1'
+    }
+    else if ( project.hasProperty( 'alpha2' ) ) {
+        ormVersion = 'orm6'
+        hibernateVersion = '6.0.0.Alpha2'
+    }
+    else if ( project.hasProperty( 'orm6' ) ) {
+        if ( orm6?.trim() ) {
+            hibernateVersion = orm6
+        }
     }
 }
-
 
 dependencies {
     compile 'org.openjdk.jmh:jmh-core:1.21'
@@ -43,12 +66,6 @@ dependencies {
     runtime libraries.h2
     
 }
-
-//if ( ormVersion == 'seqpoc' ) {
-//    repositories {
-//        mavenLocal()
-//    }
-//}
 
 afterEvaluate {
     dependencies {
@@ -66,7 +83,7 @@ afterEvaluate {
 
 jmh {
     // for available options, see https://github.com/melix/jmh-gradle-plugin/blob/master/README.adoc#configuration-options
-
+    exclude = ['EndToEndBenchmarkTests']
     benchmarkMode = ['avgt']
 
     iterations = 20 //default 10
@@ -75,6 +92,6 @@ jmh {
 
     def formattedDate = new Date().format( 'yyyy-MM-dd-HHmmss' )
 
-    humanOutputFile = project.file( "${buildDir}/reports/jmh/${ormVersion}/human_${formattedDate}.txt" )
-    resultsFile = project.file( "${buildDir}/reports/jmh/${ormVersion}/results_${formattedDate}.txt" )
+    humanOutputFile = project.file( "${buildDir}/reports/jmh/${ormVersion}/human_${hibernateVersion}_${formattedDate}.txt" )
+    resultsFile = project.file( "${buildDir}/reports/jmh/${ormVersion}/results_${hibernateVersion}_${formattedDate}.txt" )
 }

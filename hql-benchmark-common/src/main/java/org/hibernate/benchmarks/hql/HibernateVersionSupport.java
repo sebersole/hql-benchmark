@@ -6,6 +6,8 @@
  */
 package org.hibernate.benchmarks.hql;
 
+import javax.persistence.EntityManager;
+
 /**
  * The main abstraction between different versions of Hibernate
  */
@@ -31,5 +33,7 @@ public interface HibernateVersionSupport {
 	 * Close the SessionFactory, etc
 	 */
 	void shutDown();
+
+	EntityManager getEntityManager();
 }
 

@@ -13,15 +13,15 @@ or
 
 `gradlew clean jmh -Porm5`
 
-To run using Hibernate 6.0 alpha2
+To run using Hibernate 6.0 alpha2 use:
 
-`gradlew jmh`
+`gradlew jmh -Palpha2`
 
 or
 
-`gradlew clean jmh`
+`gradlew clean jmh -Palpha2`
 
-To run using using Hibernate 6.0 alpha1
+To run using using Hibernate 6.0 alpha1 use:
 
 `gradlew jmh -Palpha1`
 
@@ -29,4 +29,23 @@ or
 
 `gradlew clean jmh -Palpha1`
 
+To run using using Hibernate 6.0.0-SNAPSHOT use:
+
+`gradlew jmh -Porm6`
+
+or
+
+`gradlew clean jmh -Porm6`
+
+To to use a specifi version of 5.x use:
+
+`gradlew jmh -Porm5=5.3.10.Final`
+
+or
+
+`gradlew clean jmh -Porm5=5.4.2.Final`
+
+To use a maven local repository a `-PmavenLocal` can be added.
+
 The generated reports can be found inside the `./build/reports/jmh` folder.
+

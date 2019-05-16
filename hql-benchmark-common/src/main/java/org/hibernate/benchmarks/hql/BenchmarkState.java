@@ -6,6 +6,10 @@
  */
 package org.hibernate.benchmarks.hql;
 
+import java.util.function.Consumer;
+import java.util.function.Function;
+import javax.persistence.EntityManager;
+
 import org.openjdk.jmh.annotations.Scope;
 import org.openjdk.jmh.annotations.Setup;
 import org.openjdk.jmh.annotations.State;
@@ -30,12 +34,59 @@ public class BenchmarkState {
 
 			hqlParseTreeBuilder = versionSupport.getHqlParseTreeBuilder();
 			hqlSemanticTreeBuilder = versionSupport.getHqlSemanticInterpreter();
+			populateDatabase();
 		}
 		catch (Throwable t) {
 			t.printStackTrace();
 			throw t;
 		}
 	}
+
+	protected void populateDatabase() {
+	}
+
+	protected void cleanUpDatabase() {
+
+	}
+
+	public <T> T inTransaction(Function<EntityManager, T> function) {
+		EntityManager em = versionSupport.getEntityManager();
+		T result = null;
+		try {
+			em.getTransaction().begin();
+			result = function.apply( em );
+			em.getTransaction().commit();
+		}
+		catch (Exception e) {
+			if ( em.getTransaction().isActive() ) {
+				em.getTransaction().rollback();
+			}
+			throw e;
+		}
+		finally {
+			em.close();
+		}
+		return result;
+	}
+
+	public void inTransaction(Consumer<EntityManager> consumer) {
+		EntityManager em = versionSupport.getEntityManager();
+		try {
+			em.getTransaction().begin();
+			consumer.accept( em );
+			em.getTransaction().commit();
+		}
+		catch (Exception e) {
+			if ( em.getTransaction().isActive() ) {
+				em.getTransaction().rollback();
+			}
+		}
+		finally {
+			em.close();
+		}
+	}
+
+
 
 
 	protected Class[] getAnnotatedClasses() {
@@ -61,6 +112,7 @@ public class BenchmarkState {
 	@TearDown
 	public void shutdown() {
 		try {
+			cleanUpDatabase();
 			versionSupport.shutDown();
 		}
 		catch (Throwable t) {
@@ -68,4 +120,5 @@ public class BenchmarkState {
 			throw t;
 		}
 	}
+
 }

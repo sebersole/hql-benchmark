@@ -6,6 +6,8 @@
  */
 package org.hibernate.benchmarks.hql.orm5;
 
+import javax.persistence.EntityManager;
+
 import org.hibernate.benchmarks.hql.HibernateVersionSupport;
 import org.hibernate.benchmarks.hql.HqlParseTreeBuilder;
 import org.hibernate.benchmarks.hql.HqlSemanticTreeBuilder;
@@ -23,8 +25,14 @@ public class VersionSupportImpl implements HibernateVersionSupport {
 
 	@Override
 	public void setUp(Class[] annotatedClasses, String[] hbmfiles, boolean createSchema) {
-		serviceRegistry = new StandardServiceRegistryBuilder().build();
-
+		StandardServiceRegistryBuilder standardServiceRegistryBuilder = new StandardServiceRegistryBuilder();
+		if ( createSchema ) {
+			standardServiceRegistryBuilder.applySetting(
+					org.hibernate.cfg.AvailableSettings.HBM2DDL_AUTO,
+					"create-drop"
+			);
+		}
+		serviceRegistry = standardServiceRegistryBuilder.build();
 		sessionFactory = (SessionFactoryImplementor) new MetadataSources( serviceRegistry )
 				.addResource( "benchmark.hbm.xml" )
 				.buildMetadata()
@@ -58,5 +66,10 @@ public class VersionSupportImpl implements HibernateVersionSupport {
 			catch (Exception ignore) {
 			}
 		}
+	}
+
+	@Override
+	public EntityManager getEntityManager() {
+		return sessionFactory.openSession();
 	}
 }
